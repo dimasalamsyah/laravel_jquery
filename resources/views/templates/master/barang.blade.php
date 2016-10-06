@@ -82,7 +82,7 @@ table tr.selected {
 		<div class="w3-container w3-padding-4">
 			<button class="w3-btn w3-white" onclick="openAdd()" id="btnAdd"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add</button>
 			<button class="w3-btn w3-white"  id="btnEdit"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit</button>
-			<button class="w3-btn w3-white" onclick="openDelete()" id="btnDelete"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Delete</button>
+			<button class="w3-btn w3-white"  id="openDelete"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Delete</button>
 			<button class="w3-btn w3-white" onclick="printPDF()" class="printReport"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>
 			<button class="w3-btn w3-white" onclick="printExcel()" class="printReport"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
 		</div>
@@ -186,6 +186,42 @@ table tr.selected {
 </div>
 <!-- akhir modal -->
 
+<!-- modal warning delete -->
+<div id="modal_warningDelete" class="w3-modal" style="">
+  <div class="w3-modal-content" style="width:20%">
+  	<header class="w3-container w3-teal">
+        <span onclick="document.getElementById('modal_warningDelete').style.display='none'"
+        class="w3-closebtn">&times;</span>
+        <h6>Warning</h6>
+     </header>
+
+    <div class="w3-container">
+			<form class="" action="barang/2" method="post">
+
+
+    	<p>Yakin ingin di hapus?</p>
+			<p>
+		   <button class="w3-btn w3-teal" type="button" id="btnDeleteDeal"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Hapus</button>
+			</p>
+			<p>
+		   {{-- <button class="w3-btn w3-teal" type="button" onclick="document.getElementById('modal_warningDelete').style.display='none'"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Batal</button> --}}
+			 <input type="submit" name="name" value="tes">
+			</p>
+			<p>
+				<input type="hidden" name="_method" value="delete">
+			</p>
+			<p>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			</p>
+
+		</form>
+		</div>
+
+
+  </div>
+</div>
+<!-- akhir modal -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
@@ -220,6 +256,29 @@ $( document ).ready(function() {
         });
 
 	});
+
+
+	$("#btnDeleteDeal").click(function () {
+
+	 	$.ajax({
+            url: '/barang/4',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                '_method': $('input[name=_method]').val(),
+                'id': '4'
+            },
+            success: function(datanya) {
+                 //console.log(dataReplce);
+								 id="tes";
+								//  var td = $(selectedRow).children('td');
+								 //
+								 // 	var id = td[0].innerText;
+                 console.log(id);
+            }
+        });
+
+	});
+
 
 
 });

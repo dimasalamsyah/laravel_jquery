@@ -59,7 +59,26 @@ $( document ).ready(function() {
 		}else{
 			document.getElementById('modal_warningEdit').style.display='block';
 		}
-	    
+
+	});
+
+	$("#openDelete").click(function () {
+		if(selectedRow!=""){
+			var td = $(selectedRow).children('td');
+
+				var id = td[0].innerText;
+				var name = td[1].innerText;
+				var harga = td[2].innerText;
+
+				document.getElementById('modal_warningDelete').style.display='block';
+
+				// for (var i = 0; i < td.length; ++i) {
+				//     alert(i + ': ' + td[i].innerText);
+				// }
+		}else{
+			document.getElementById('modal_warningEdit').style.display='block';
+		}
+
 	});
 
 });
