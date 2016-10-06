@@ -5,7 +5,7 @@
   	<th>Harga</th>
 </tr>
 <?php foreach ($data as $rows): ?>
-		<tr>
+		<tr class="tr{{ $rows->id }}">
 			<td id="nama" style="display:"><?php echo $rows->id ; ?></td>
 			<td id="nama"><?php echo $rows->name ; ?></td>
 			<td id="harga"><?php echo $rows->harga; ?></td>
@@ -44,9 +44,11 @@ $( document ).ready(function() {
 		if(selectedRow!=""){
 			var td = $(selectedRow).children('td');
 
+		    var id = td[0].innerText;
 		    var name = td[1].innerText;
 		    var harga = td[2].innerText;
 
+		    $("#id_edit").val(id);
 		    $("#name_edit").val(name);
 		    $("#harga_edit").val(harga);
 		    document.getElementById('modal_edit').style.display='block';

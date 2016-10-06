@@ -8,7 +8,7 @@
 <style>
 
 table tr.selected {
-	background-color: #f1f1f1 !important;
+	background-color: #bfbfbf !important;
 	vertical-align: middle;
 	padding: 1.5em;
 }
@@ -136,7 +136,7 @@ table tr.selected {
 
     <div class="w3-container">
   	<!-- {!! Form::open(['route'=>['barang.update','!!} {!!'], 'method'=> 'PATCH'])  !!} -->
-  	<form action="/barang/1" method="post">
+  	<form action="" method="post">
   		<p>
 		  	<label>id Barang</label>
 			{!! Form::text('id', null, ['class' => 'w3-input', 'id' => 'id_edit']) !!}
@@ -156,7 +156,7 @@ table tr.selected {
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			</p>
     	<p>
-		   <button class="w3-btn w3-teal" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Simpan</button>
+		   <button class="w3-btn w3-teal" type="button" id="btnSave"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Simpan</button>
 			</p>
 		<!-- {!! Form::submit('Simpan', ['class' => 'w3-btn w3-teal']) !!} -->
 	<!-- {!! Form::close() !!} -->
@@ -191,6 +191,37 @@ table tr.selected {
 $( document ).ready(function() {
 	var Url = '/master-barang-pagination';
 	$('#ajaxContent').load(Url);
+
+	$("#btnSave").click(function () {
+
+	 	$.ajax({
+            type: 'post',
+            url: '/barang/'+ $("#id_edit").val(),
+            data: {
+                '_token': $('input[name=_token]').val(),
+                '_method': $('input[name=_method]').val(),
+                'id': $("#id_edit").val(),
+                'name': $('#name_edit').val(),
+                'harga': $('#harga_edit').val()
+            },
+            success: function(datanya) {
+                 //console.log('oke');
+
+                 var dataReplce = "<tr class='tr" + $("#id_edit").val() + "'>";
+                 	dataReplce += "<td>" + $("#id_edit").val() + "</td><td>" + $("#name_edit").val() + "</td><td>" + $("#harga_edit").val() + "</td>";
+                 	dataReplce += "</tr>";
+
+                 $('.tr' + $("#id_edit").val()).replaceWith(dataReplce);
+                  document.getElementById('modal_edit').style.display='none';
+
+                 //console.log(dataReplce);
+                 //console.log(datanya);
+            }
+        });
+
+	});
+
+
 });
 
 function openAdd(){
